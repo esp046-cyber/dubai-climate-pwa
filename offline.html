@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Offline | Dubai Heat &amp; Humidity Tracker</title>
+  <link rel="stylesheet" href="/src/css/styles.css">
+  <style>
+    .offline-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 24px; }
+    .offline-icon { font-size: 64px; margin-bottom: 16px; filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4)); }
+  </style>
+</head>
+<body class="theme-ambient">
+  <div class="mesh-bg"></div>
+  <main class="offline-container">
+    <div class="offline-icon">📡</div>
+    <h1 style="font-size: 1.8rem; margin-bottom: 8px;">Network Disconnected</h1>
+    <p style="color: var(--text-muted); max-width: 380px; margin-bottom: 24px;">
+      You are viewing the offline cache. Live satellite and street sensor telemetry will resume automatically once connection returns.
+    </p>
+    <div class="bento-card" style="width: 100%; max-width: 400px; margin-bottom: 24px;">
+      <h3 style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px;">LAST RECORDED READING</h3>
+      <div id="offline-saved-metric" style="font-size: 1.4rem; font-weight: 700;">Loading cached data...</div>
+    </div>
+    <button class="btn btn-primary" onclick="window.location.reload();">Retry Connection</button>
+  </main>
+  <script>
+    const cached = localStorage.getItem('dubai_last_weather');
+    if (cached) {
+      try {
+        const data = JSON.parse(cached);
+        document.getElementById('offline-saved-metric').innerHTML = `
+          ${data.locationName}<br>
+          <span style="color: var(--accent-orange); font-size: 2.2rem;">${data.temp}°C</span>
+          <span style="color: var(--accent-cyan); font-size: 1.4rem; margin-left: 12px;">💧 ${data.humidity}%</span>
+        `;
+      } catch (e) {
+        document.getElementById('offline-saved-metric').innerText = 'No cached telemetry found.';
+      }
+    } else {
+      document.getElementById('offline-saved-metric').innerText = 'No cached telemetry found.';
+    }
+  </script>
+</body>
+</html>
