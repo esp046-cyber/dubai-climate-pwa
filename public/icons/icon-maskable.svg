@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="maskBg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#05070E" /><stop offset="100%" stop-color="#0F172A" /></linearGradient>
+    <linearGradient id="sunMask" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF7A00" /><stop offset="100%" stop-color="#FF0055" /></linearGradient>
+    <linearGradient id="dropMask" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F0FF" /><stop offset="100%" stop-color="#0072FF" /></linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#maskBg)" />
+  <g transform="translate(30, 30) scale(0.88)">
+    <circle cx="256" cy="256" r="140" fill="url(#sunMask)" opacity="0.25" />
+    <path d="M192 128 A 40 40 0 0 1 272 128 L 272 256 A 80 80 0 1 1 192 256 Z" fill="#1E293B" stroke="#334155" stroke-width="10" />
+    <path d="M208 172 L 256 172 L 256 262 A 54 54 0 1 1 208 262 Z" fill="url(#sunMask)" />
+    <path d="M336 160 C336 160 400 244 400 294 A 64 64 0 0 1 272 294 C 272 244 336 160 336 160 Z" fill="url(#dropMask)" />
+    <ellipse cx="316" cy="278" rx="14" ry="22" fill="#FFF" opacity="0.6" />
+  </g>
+</svg>

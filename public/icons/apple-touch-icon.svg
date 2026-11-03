@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <linearGradient id="appleBg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0B132B" /><stop offset="100%" stop-color="#1C2541" /></linearGradient>
+    <linearGradient id="sunApple" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF7A00" /><stop offset="100%" stop-color="#FF0055" /></linearGradient>
+    <linearGradient id="dropApple" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00F0FF" /><stop offset="100%" stop-color="#0072FF" /></linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#appleBg)" />
+  <path d="M68 44 A 14 14 0 0 1 96 44 L 96 90 A 28 28 0 1 1 68 90 Z" fill="#1E293B" stroke="#334155" stroke-width="4" />
+  <path d="M74 58 L 90 58 L 90 92 A 19 19 0 1 1 74 92 Z" fill="url(#sunApple)" />
+  <path d="M118 58 C118 58 140 88 140 106 A 22 22 0 0 1 96 106 C 96 88 118 58 118 58 Z" fill="url(#dropApple)" />
+  <ellipse cx="111" cy="100" rx="5" ry="8" fill="#FFF" opacity="0.5" />
+</svg>
