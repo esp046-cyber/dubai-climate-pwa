@@ -1,9 +1,20 @@
-const CACHE_NAME = 'dubai-climate-v1';
+const CACHE_NAME = 'dubai-climate-v2';
 const STATIC_ASSETS = [
-  '/', '/index.html', '/offline.html', '/src/css/styles.css', '/src/js/app.js', '/src/js/locations.js',
-  '/src/js/weather-api.js', '/src/js/share.js', '/manifest.webmanifest', '/public/favicon.svg',
-  '/public/og-image.svg', '/public/icons/icon-192.svg', '/public/icons/icon-512.svg',
-  '/public/icons/icon-maskable.svg', '/public/icons/apple-touch-icon.svg'
+  './',
+  'index.html',
+  'offline.html',
+  'manifest.webmanifest',
+  'src/css/styles.css',
+  'src/js/app.js',
+  'src/js/locations.js',
+  'src/js/weather-api.js',
+  'src/js/share.js',
+  'public/favicon.svg',
+  'public/og-image.svg',
+  'public/icons/icon-192.svg',
+  'public/icons/icon-512.svg',
+  'public/icons/icon-maskable.svg',
+  'public/icons/apple-touch-icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -13,15 +24,19 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.map((key) => { if (key !== CACHE_NAME) return caches.delete(key); })))
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((key) => { if (key !== CACHE_NAME) return caches.delete(key); }))
+    )
   );
   self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
 
-  if (url.origin.includes('open-meteo.com')) {
+  // Network-First with cache fallback for the Open-Meteo weather API
+  if (url.hostname.endsWith('open-meteo.com')) {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -34,14 +49,19 @@ self.addEventListener('fetch', (event) => {
         .catch(async () => {
           const cached = await caches.match(event.request);
           if (cached) return cached;
-          return new Response(JSON.stringify({ error: 'offline' }), { headers: { 'Content-Type': 'application/json' } });
+          return new Response(JSON.stringify({ error: 'offline' }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
+          });
         })
     );
     return;
   }
 
+  // Stale-While-Revalidate for app assets; offline.html for failed page loads
+  const isNavigation = event.request.mode === 'navigate';
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
+    caches.match(event.request, { ignoreSearch: isNavigation }).then((cachedResponse) => {
       const fetchPromise = fetch(event.request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
@@ -51,7 +71,7 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
-          if (event.request.mode === 'navigate') return caches.match('/offline.html');
+          if (isNavigation) return caches.match('offline.html');
         });
       return cachedResponse || fetchPromise;
     })

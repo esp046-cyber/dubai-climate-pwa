@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://esp046-cyber.github.io/dubai-climate-pwa/sitemap.xml

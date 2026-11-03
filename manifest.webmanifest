@@ -2,25 +2,26 @@
   "name": "Dubai Heat & Humidity Live Tracker",
   "short_name": "Dubai Climate",
   "description": "Hyper-local real-time temperature, humidity and heat index monitor across Dubai streets, highways, and residential communities.",
-  "start_url": "/",
-  "scope": "/",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#070A12",
   "theme_color": "#070A12",
   "categories": ["weather", "utilities", "travel"],
   "icons": [
-    {"src": "/public/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any"},
-    {"src": "/public/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any"},
-    {"src": "/public/icons/icon-maskable.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable"},
-    {"src": "/public/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "/public/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "/public/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
-    {"src": "/public/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {"src": "./public/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any"},
+    {"src": "./public/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any"},
+    {"src": "./public/icons/icon-maskable.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable"},
+    {"src": "./public/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "./public/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "./public/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
+    {"src": "./public/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ],
   "shortcuts": [
-    {"name": "Discovery Gardens", "short_name": "Discovery", "url": "/?loc=discovery_gardens", "icons": [{"src": "/public/icons/icon-192.svg", "sizes": "192x192"}]},
-    {"name": "Jebel Ali Port", "short_name": "Jebel Ali", "url": "/?loc=jebel_ali_port", "icons": [{"src": "/public/icons/icon-192.svg", "sizes": "192x192"}]},
-    {"name": "Sheikh Zayed Road", "short_name": "SZR", "url": "/?loc=szr_e11", "icons": [{"src": "/public/icons/icon-192.svg", "sizes": "192x192"}]}
+    {"name": "Discovery Gardens", "short_name": "Discovery", "url": "./?loc=discovery_gardens", "icons": [{"src": "./public/icons/icon-192.svg", "sizes": "192x192"}]},
+    {"name": "Jebel Ali Port", "short_name": "Jebel Ali", "url": "./?loc=jebel_ali_port", "icons": [{"src": "./public/icons/icon-192.svg", "sizes": "192x192"}]},
+    {"name": "Sheikh Zayed Road", "short_name": "SZR", "url": "./?loc=szr_e11", "icons": [{"src": "./public/icons/icon-192.svg", "sizes": "192x192"}]}
   ]
 }
