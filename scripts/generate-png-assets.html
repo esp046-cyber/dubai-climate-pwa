@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dubai Climate PWA — 1-Click PNG Asset Generator</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0A0F1D; color: #FFF; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; }
+    .box { background: #1E293B; padding: 32px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); max-width: 500px; }
+    button { background: #00E5FF; color: #05070E; border: none; padding: 14px 28px; font-size: 1.1rem; font-weight: 800; border-radius: 12px; cursor: pointer; margin-top: 20px; }
+    button:hover { background: #33ECFF; }
+    #log { margin-top: 16px; font-size: 0.85rem; color: #94A3B8; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>1-Click PNG Icon &amp; OG Image Generator</h2>
+    <p>Renders all specified PNGs at exact dimensions from embedded vector blueprints and triggers immediate file downloads.</p>
+    <button id="btnGen">Generate &amp; Download All 8 Files</button>
+    <div id="log">Ready to generate.</div>
+  </div>
+  <canvas id="cvs" style="display: none;"></canvas>
+  <script>
+    const ASSETS = [
+      { name: "favicon-16x16.png", width: 16, height: 16, draw: drawIcon },
+      { name: "favicon-32x32.png", width: 32, height: 32, draw: drawIcon },
+      { name: "apple-touch-icon.png", width: 180, height: 180, draw: drawIcon },
+      { name: "icon-192.png", width: 192, height: 192, draw: drawIcon },
+      { name: "icon-512.png", width: 512, height: 512, draw: drawIcon },
+      { name: "icon-maskable-192.png", width: 192, height: 192, draw: drawMaskable },
+      { name: "icon-maskable-512.png", width: 512, height: 512, draw: drawMaskable },
+      { name: "og-image.png", width: 1200, height: 630, draw: drawOgImage }
+    ];
+
+    function drawIcon(ctx, w, h) {
+      ctx.fillStyle = "#0A0F1D";
+      ctx.fillRect(0, 0, w, h);
+      const scale = w / 100;
+      ctx.fillStyle = "#FF5722";
+      ctx.beginPath();
+      ctx.arc(40 * scale, 65 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(34 * scale, 25 * scale, 12 * scale, 40 * scale);
+      ctx.beginPath();
+      ctx.arc(40 * scale, 25 * scale, 6 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#00E5FF";
+      ctx.beginPath();
+      ctx.arc(68 * scale, 62 * scale, 12 * scale, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(56 * scale, 62 * scale);
+      ctx.lineTo(68 * scale, 40 * scale);
+      ctx.lineTo(80 * scale, 62 * scale);
+      ctx.fill();
+    }
+
+    function drawMaskable(ctx, w, h) {
+      ctx.fillStyle = "#0A0F1D";
+      ctx.fillRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(w * 0.1, h * 0.1);
+      ctx.scale(0.8, 0.8);
+      drawIcon(ctx, w, h);
+      ctx.restore();
+    }
+
+    function drawOgImage(ctx, w, h) {
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, "#050811");
+      grad.addColorStop(0.5, "#0B132B");
+      grad.addColorStop(1, "#170F1C");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "#111827";
+      ctx.beginPath();
+      ctx.moveTo(0, 630);
+      ctx.lineTo(0, 520);
+      ctx.lineTo(140, 480);
+      ctx.lineTo(300, 420);
+      ctx.lineTo(480, 500);
+      ctx.lineTo(605, 120);
+      ctx.lineTo(720, 460);
+      ctx.lineTo(880, 430);
+      ctx.lineTo(1200, 560);
+      ctx.lineTo(1200, 630);
+      ctx.fill();
+      ctx.fillStyle = "#00E5FF";
+      ctx.font = "bold 26px system-ui";
+      ctx.fillText("DUBAI MICROCLIMATE TELEMETRY", 100, 160);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = "bold 58px system-ui";
+      ctx.fillText("Live Heat & Humidity Tracker", 100, 230);
+      ctx.fillStyle = "#94A3B8";
+      ctx.font = "30px system-ui";
+      ctx.fillText("Jebel Ali • Discovery Gardens • SZR • E311 • E611", 100, 310);
+    }
+
+    document.getElementById('btnGen').addEventListener('click', async () => {
+      const cvs = document.getElementById('cvs');
+      const ctx = cvs.getContext('2d');
+      const log = document.getElementById('log');
+      for (let i = 0; i < ASSETS.length; i++) {
+        const item = ASSETS[i];
+        cvs.width = item.width;
+        cvs.height = item.height;
+        ctx.clearRect(0, 0, item.width, item.height);
+        item.draw(ctx, item.width, item.height);
+        const dataUrl = cvs.toDataURL("image/png");
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = item.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        log.textContent = `Generated & downloaded (${i + 1}/${ASSETS.length}): ${item.name}`;
+        await new Promise(r => setTimeout(r, 250));
+      }
+      log.textContent = "All 8 files downloaded. Copy PNG icons to /public/icons/ and og-image.png to /public/";
+    });
+  </script>
+</body>
+</html>
