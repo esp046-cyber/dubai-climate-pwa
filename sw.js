@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dubai-climate-v2';
+const CACHE_NAME = 'dubai-climate-v4';
 const STATIC_ASSETS = [
   './',
   'index.html',
